@@ -21,7 +21,7 @@ const CheckInModal: React.FC = () => {
   // So there is a brief amount of blank screen if we wait until didDismiss to navigate away
   // This doesn't seem to be an issue on Android/Web, so navigating on didDismiss is fine for those platforms
   const handleWillDismiss = (event: CustomEvent<OverlayEventDetail>) => isPlatform('ios') && exitFlow(event);
-  const handleDidDismiss = (event: CustomEvent<OverlayEventDetail>) => !isPlatform('ios')&& exitFlow(event);
+  const handleDidDismiss = (event: CustomEvent<OverlayEventDetail>) => !isPlatform('ios') && exitFlow(event);
 
   const endCheckIn = async (data?: any, role?: string) => {
     if (role === 'user-completed-check-in') {
