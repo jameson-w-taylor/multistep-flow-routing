@@ -54,7 +54,7 @@ const CheckInModal: React.FC = () => {
   useEffect(() => {
     console.log('Starting check-in process');
     return () => {
-      console.log(`Ending check-in process because: ${reasonDismissed.current || 'browser-back-button'}`);
+      console.log(`Ending check-in process because: ${reasonDismissed.current}`);
     }
   }, []);
 
