@@ -3,7 +3,7 @@ import { IonButton, IonButtons, IonContent, IonHeader, IonNavLink, IonTitle, Ion
 import Step2 from './Step2';
 
 interface Props {
-  endCheckIn: (data?: any, role?: string) => void;
+  endCheckIn: (data?: any, role?: string) => Promise<void>;
 }
 
 const Step1: React.FC<Props> = ({ endCheckIn }) => {

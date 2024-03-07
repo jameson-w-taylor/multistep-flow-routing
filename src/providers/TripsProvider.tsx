@@ -7,7 +7,7 @@ interface Trip {
 
 type Context = {
   trips: Map<string, Trip>;
-  checkIn(tripID: string): void;
+  checkIn(tripID: string, data?: any): void;
 };
 
 const trips = new Map([
@@ -22,9 +22,10 @@ export const TripsContext = createContext<Context>({
 });
 
 export const TripsProvider: React.FC<PropsWithChildren> = ({ children }) => {
-  const checkIn = (tripID: string) => {
+  const checkIn = (tripID: string, data?: any) => {
     const trip = trips.get(tripID);
     if (trip) {
+      console.log('Check In Complete!', data);
       trips.set(tripID, { ...trip, isCheckedIn: true });
     }
   };

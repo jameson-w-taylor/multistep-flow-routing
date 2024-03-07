@@ -1,7 +1,7 @@
 import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/react';
 
 interface Props {
-  endCheckIn: (data?: any, role?: string) => void;
+  endCheckIn: (data?: any, role?: string) => Promise<void>;
 }
 
 const StepComplete: React.FC<Props> = ({ endCheckIn }) => {
