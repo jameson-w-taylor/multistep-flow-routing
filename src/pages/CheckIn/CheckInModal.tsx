@@ -8,8 +8,6 @@ import './CheckInModal.css';
 import Step1 from './Step1';
 import { TripsContext } from '../../providers/TripsProvider';
 
-let didInit = false;
-
 const CheckInModal: React.FC = () => {
   const history = useHistory();
   const { tripID } = useParams<{ tripID: string }>();
@@ -17,11 +15,20 @@ const CheckInModal: React.FC = () => {
   const reasonDismissed = useRef<string>();
   const modal = useRef<HTMLIonModalElement>(null);
 
+  // On the web, the browser back button will cause this lifecycle to execute with no reason set
+  // All other scenarios (modal backdrop, escape key, cancel, or complete) will have already defined this before the view will leave
+  useIonViewWillLeave(() => {
+    if (reasonDismissed.current === undefined) {
+      modal.current?.dismiss(null, 'browser-back-button');
+    }
+  });
+
   // On iOS the animations are slow/dramatic
   // So there is a brief amount of blank screen if we wait until didDismiss to navigate away
   // This doesn't seem to be an issue on Android/Web, so navigating on didDismiss is fine for those platforms
   const handleWillDismiss = (event: CustomEvent<OverlayEventDetail>) => isPlatform('ios') && exitFlow(event);
   const handleDidDismiss = (event: CustomEvent<OverlayEventDetail>) => !isPlatform('ios') && exitFlow(event);
+  const handleWillPresent = () => console.log('Starting check-in process');
 
   const endCheckIn = async (data?: any, role?: string) => {
     if (role === 'user-completed-check-in') {
@@ -43,26 +50,10 @@ const CheckInModal: React.FC = () => {
     }
   }
 
-  // Run once to log when process starts
-  useEffect(() => {
-    if (!didInit) {
-      didInit = true;
-      console.log('Starting check-in process');
-    }
-  }, []);
-
-  // On the web, the browser back button will cause this lifecycle to execute with no reason set
-  // All other scenarios (modal backdrop, escape key, cancel, or complete) will have already defined this before the view will leave
-  useIonViewWillLeave(() => {
-    if (reasonDismissed.current === undefined) {
-      modal.current?.dismiss(null, 'browser-back-button');
-    }
-  });
-
   return (
     <IonPage>
       <IonContent>
-        <IonModal isOpen ref={modal} className="check-in" onWillDismiss={handleWillDismiss} onDidDismiss={handleDidDismiss}>
+        <IonModal isOpen ref={modal} className="check-in" onWillPresent={handleWillPresent} onWillDismiss={handleWillDismiss} onDidDismiss={handleDidDismiss}>
           <IonNav root={() => <Step1 endCheckIn={endCheckIn} />} />
         </IonModal>
       </IonContent>
