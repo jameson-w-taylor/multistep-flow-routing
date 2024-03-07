@@ -1,7 +1,6 @@
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
+import { IonApp, IonModal, IonNav, IonRouterOutlet, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import Home from './pages/Home';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -21,6 +20,10 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import Trips from './pages/Trips';
+import Home from './pages/Home';
+import TripDetail from './pages/TripDetail';
+import CheckInModal from './pages/CheckIn/CheckInModal';
 
 setupIonicReact();
 
@@ -30,6 +33,15 @@ const App: React.FC = () => (
       <IonRouterOutlet>
         <Route exact path="/home">
           <Home />
+        </Route>
+        <Route exact path="/trips">
+          <Trips />
+        </Route>
+        <Route exact path="/trips/:tripID">
+          <TripDetail />
+        </Route>
+        <Route exact path="/trips/:tripID/check-in">
+          <CheckInModal />
         </Route>
         <Route exact path="/">
           <Redirect to="/home" />
