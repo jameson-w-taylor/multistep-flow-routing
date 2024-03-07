@@ -26,11 +26,6 @@ const StepComplete: React.FC<Props> = ({ endCheckIn }) => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Check In: Final Step</IonTitle>
-          </IonToolbar>
-        </IonHeader>
         <IonButton onClick={() => endCheckIn(dummyData, 'user-completed-check-in')}>
           Complete Check-In
         </IonButton>

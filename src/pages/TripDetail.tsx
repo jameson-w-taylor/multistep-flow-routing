@@ -25,11 +25,6 @@ const TripDetail: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">{selectedTrip.label}</IonTitle>
-          </IonToolbar>
-        </IonHeader>
         <IonButton disabled={selectedTrip.isCheckedIn} routerLink={`${url}/check-in`}>
           {selectedTrip.isCheckedIn ? 'Already Checked-In' : 'Check-In'}
         </IonButton>

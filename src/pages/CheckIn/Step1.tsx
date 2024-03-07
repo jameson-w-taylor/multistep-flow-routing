@@ -20,11 +20,6 @@ const Step1: React.FC<Props> = ({ endCheckIn }) => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Check In: Step 1</IonTitle>
-          </IonToolbar>
-        </IonHeader>
         <IonNavLink routerDirection="forward" component={() => <Step2 endCheckIn={endCheckIn} />}>
           <IonButton>
             Next Step

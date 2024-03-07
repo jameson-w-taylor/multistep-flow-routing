@@ -23,11 +23,6 @@ const Step2: React.FC<Props> = ({ endCheckIn }) => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Check In: Step 2</IonTitle>
-          </IonToolbar>
-        </IonHeader>
         <IonNavLink routerDirection="forward" component={() => <StepComplete endCheckIn={endCheckIn} />}>
           <IonButton>
             Next Step
