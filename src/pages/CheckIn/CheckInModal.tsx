@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import { IonNav, IonModal, IonContent, IonPage, useIonViewWillLeave } from '@ionic/react';
+import { IonNav, IonModal, IonContent, IonPage, useIonViewWillLeave, isPlatform } from '@ionic/react';
 import { OverlayEventDetail } from '@ionic/core/components';
 
 import './CheckInModal.css';
@@ -23,6 +23,24 @@ const CheckInModal: React.FC = () => {
     }
     modal.current?.dismiss(data, role);
   };
+
+  const handleWillDismiss = (event: CustomEvent<OverlayEventDetail>) => {
+    // On iOS the animations are slow/dramatic
+    // So there is a brief amount of blank screen if we wait until didDismiss to navigate away
+    // This doesn't seem to be an issue on Android/Web, so navigating on didDismiss is fine for those platforms
+    if (isPlatform('ios')) {
+      exitFlow(event);
+    }
+  }
+
+  const handleDidDismiss = (event: CustomEvent<OverlayEventDetail>) => {
+    // On iOS the animations are slow/dramatic
+    // So there is a brief amount of blank screen if we wait until didDismiss to navigate away
+    // This doesn't seem to be an issue on Android/Web, so navigating on didDismiss is fine for those platforms
+    if (!isPlatform('ios')) {
+      exitFlow(event);
+    }
+  }
 
   const exitFlow = (event: CustomEvent<OverlayEventDetail>) => {
     if (reasonDismissed.current === undefined) {
@@ -49,7 +67,7 @@ const CheckInModal: React.FC = () => {
   return (
     <IonPage>
       <IonContent>
-        <IonModal isOpen ref={modal} className="check-in" onDidDismiss={exitFlow}>
+        <IonModal isOpen ref={modal} className="check-in" onWillDismiss={handleWillDismiss} onDidDismiss={handleDidDismiss}>
           <IonNav root={() => <Step1 endCheckIn={endCheckIn} />} />
         </IonModal>
       </IonContent>
