@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef } from 'react';
+import { useContext, useRef } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { IonNav, IonModal, IonContent, IonPage, useIonViewWillLeave, isPlatform } from '@ionic/react';
 import { OverlayEventDetail } from '@ionic/core/components';
